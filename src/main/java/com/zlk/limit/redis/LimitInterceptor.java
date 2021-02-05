@@ -22,6 +22,7 @@ import java.lang.reflect.Method;
 
 /**
  * 限流切面实现
+ *
  * @Author zc217
  * @Date 2020/12/18
  */
@@ -32,7 +33,7 @@ public class LimitInterceptor {
     private static final Logger logger = LoggerFactory.getLogger(LimitInterceptor.class);
     private static final String UNKNOWN = "unknown";
     // RedisLimiterHelper这个类自定义组件
-        private final RedisTemplate<String, Serializable> limitRedisTemplate;
+    private final RedisTemplate<String, Serializable> limitRedisTemplate;
 
     @Autowired
     public LimitInterceptor(RedisTemplate<String, Serializable> limitRedisTemplate) {
@@ -65,7 +66,7 @@ public class LimitInterceptor {
             RedisScript<Long> redisScript = new DefaultRedisScript<>(luaScript, Long.class);
             Long count = limitRedisTemplate.execute(redisScript, keys, limitCount, limitPeriod);
             logger.info("Access try count is {} for name={} and key = {}", count, name, key);
-            if (count != null && count.intValue() <= limitCount) {
+            if (count != null && count.intValue() < limitCount) {
                 return pjp.proceed();
             } else {
                 throw new RuntimeException("You have been dragged into the blacklist");

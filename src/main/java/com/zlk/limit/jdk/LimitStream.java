@@ -4,6 +4,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 限流http://dockone.io/article/10137
+ *
  * @Author zc217
  * @Date 2020/12/18
  */
@@ -40,7 +41,7 @@ public class LimitStream {
     }
 
     public static void main(String[] args) {
-        for (int i=0;i<20;i++){
+        for (int i = 0; i < 20; i++) {
             System.out.println(limit(5, 10));
         }
     }

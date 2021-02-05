@@ -20,7 +20,7 @@ public class LimiterController {
     private static final AtomicInteger ATOMIC_INTEGER_2 = new AtomicInteger();
     private static final AtomicInteger ATOMIC_INTEGER_3 = new AtomicInteger();
 
-    @Limit(key = "limitTest", prefix = "redis-limit-",period = 100, count = 3)
+    @Limit(key = "limit_test", prefix = "redis-limit-",period = 100, count = 3)
     @GetMapping("/limitTest1")
     public int testLimiter1() {
         return ATOMIC_INTEGER_1.incrementAndGet();
